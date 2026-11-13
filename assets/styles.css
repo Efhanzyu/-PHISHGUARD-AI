@@ -41,10 +41,51 @@ code, pre, .stCodeBlock {
     font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace !important;
 }
 
-/* Hide Streamlit default chrome clutter */
-#MainMenu, header, footer {
-    visibility: hidden !important;
-    height: 0 !important;
+/* Streamlit Chrome Styling: Clean up header clutter while keeping Sidebar Controls functional */
+#MainMenu, footer, .stDeployButton, [data-testid="stToolbarActions"], [data-testid="stDecoration"] {
+    display: none !important;
+}
+
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    height: 2.875rem !important;
+    z-index: 99990 !important;
+}
+
+/* Ensure the sidebar toggle / collapsed control button is ALWAYS visible, clickable, and styled */
+div[data-testid="collapsedControl"] {
+    visibility: visible !important;
+    display: flex !important;
+    z-index: 100000 !important;
+    top: 0.6rem !important;
+    left: 0.6rem !important;
+    opacity: 1 !important;
+}
+
+div[data-testid="collapsedControl"] button,
+button[data-testid="stSidebarCollapseButton"],
+button[data-testid="baseButton-header"],
+[data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"] button {
+    visibility: visible !important;
+    display: flex !important;
+    color: var(--accent-turquoise) !important;
+    background: rgba(11, 33, 29, 0.9) !important;
+    border: 1px solid var(--border-glass-bright) !important;
+    border-radius: 8px !important;
+    transition: all 0.22s ease !important;
+    box-shadow: 0 0 10px rgba(53, 214, 192, 0.25) !important;
+    cursor: pointer !important;
+}
+
+div[data-testid="collapsedControl"] button:hover,
+button[data-testid="stSidebarCollapseButton"]:hover,
+button[data-testid="baseButton-header"]:hover,
+[data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"] button:hover {
+    background: rgba(53, 214, 192, 0.25) !important;
+    border-color: var(--accent-turquoise) !important;
+    box-shadow: 0 0 16px rgba(53, 214, 192, 0.5) !important;
+    color: #FFFFFF !important;
+    transform: scale(1.05) !important;
 }
 
 /* Ambient glow background overlay */
