@@ -1,0 +1,49 @@
+================================================================================
+LOG PELATIHAN MODEL MACHINE LEARNING - PHISHGUARD AI
+================================================================================
+1. Membaca Data Training dari : E:\01. Matkul\Semester 5\01. KI\UAS\dataset\processed\train_set.csv
+   Dimensi Data Training      : 80,697 baris, 18 kolom
+   Jumlah Fitur Prediktor (X) : 16 fitur
+   Daftar Fitur               : url_length, has_ip_address, dot_count, https_flag, url_entropy, token_count, subdomain_count, query_param_count, tld_length, path_length, has_hyphen_in_domain, number_of_digits, tld_popularity, suspicious_file_extension, domain_name_length, percentage_numeric_chars
+   Distribusi Target (y)      : 0 (Legitimate) = 50,793, 1 (Phishing) = 29,904
+
+--------------------------------------------------------------------------------
+2. PELATIHAN MODEL 1: DECISION TREE CLASSIFIER (PEMBANDING)
+--------------------------------------------------------------------------------
+Hyperparameter Decision Tree:
+  - max_depth           : 15
+  - min_samples_split   : 10
+  - min_samples_leaf    : 5
+  - class_weight        : balanced
+  - random_state        : 42
+
+Menjalankan 5-Fold Stratified Cross-Validation pada Training Data...
+CV F1-Scores: [np.float64(0.9988), np.float64(0.9988), np.float64(0.9986), np.float64(0.9992), np.float64(0.9985)]
+Mean CV F1  : 0.9988 (+/- 0.0003) (Waktu CV: 5.67 detik)
+Waktu Pelatihan Penuh (Fit)   : 0.13 detik
+Model disimpan ke             : E:\01. Matkul\Semester 5\01. KI\UAS\models\decision_tree_model.joblib (0.01 MB)
+
+--------------------------------------------------------------------------------
+3. PELATIHAN MODEL 2: RANDOM FOREST CLASSIFIER (MODEL UTAMA)
+--------------------------------------------------------------------------------
+Hyperparameter Random Forest:
+  - n_estimators        : 100
+  - max_depth           : 20
+  - min_samples_split   : 10
+  - min_samples_leaf    : 4
+  - class_weight        : balanced
+  - n_jobs              : -1
+  - random_state        : 42
+
+Menjalankan 5-Fold Stratified Cross-Validation pada Training Data...
+CV F1-Scores: [np.float64(0.9989), np.float64(0.9993), np.float64(0.9986), np.float64(0.9987), np.float64(0.999)]
+Mean CV F1  : 0.9989 (+/- 0.0003) (Waktu CV: 7.82 detik)
+Waktu Pelatihan Penuh (Fit)   : 1.00 detik
+Model disimpan ke             : E:\01. Matkul\Semester 5\01. KI\UAS\models\random_forest_model.joblib (1.95 MB)
+
+================================================================================
+RINGKASAN WAKTU DAN HASIL PELATIHAN PADA DATA TRAINING:
+================================================================================
+Decision Tree  -> Waktu Fit: 0.13s | CV F1: 0.9988
+Random Forest  -> Waktu Fit: 1.00s | CV F1: 0.9989
+Status Pelatihan: SUKSES (Kedua model siap dievaluasi pada data testing)

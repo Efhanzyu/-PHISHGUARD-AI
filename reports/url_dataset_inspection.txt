@@ -1,0 +1,100 @@
+================================================================================
+HASIL AUDIT & INSPEKSI DATASET FITUR URL (DEFENSIVE AI)
+================================================================================
+Lokasi File     : D:\01. Unduh\url_features_extracted1.csv
+Ukuran File Disk: 8.55 MB (8,963,838 bytes)
+[STATUS BACA]   : BERHASIL DIBACA SECARA PENUH
+Jumlah Baris    : 101,219
+Jumlah Kolom    : 18
+Estimasi RAM    : 22.01 MB
+--------------------------------------------------------------------------------
+
+[DAFTAR KOLOM & TIPE DATA]
+  1. URL                            | Tipe: str        | Unik: 100,873
+  2. url_length                     | Tipe: int64      | Unik: 236
+  3. has_ip_address                 | Tipe: int64      | Unik: 2
+  4. dot_count                      | Tipe: int64      | Unik: 19
+  5. https_flag                     | Tipe: int64      | Unik: 2
+  6. url_entropy                    | Tipe: float64    | Unik: 12,394
+  7. token_count                    | Tipe: int64      | Unik: 32
+  8. subdomain_count                | Tipe: int64      | Unik: 7
+  9. query_param_count              | Tipe: int64      | Unik: 9
+ 10. tld_length                     | Tipe: int64      | Unik: 11
+ 11. path_length                    | Tipe: int64      | Unik: 198
+ 12. has_hyphen_in_domain           | Tipe: int64      | Unik: 2
+ 13. number_of_digits               | Tipe: int64      | Unik: 113
+ 14. tld_popularity                 | Tipe: int64      | Unik: 2
+ 15. suspicious_file_extension      | Tipe: int64      | Unik: 2
+ 16. domain_name_length             | Tipe: int64      | Unik: 36
+ 17. percentage_numeric_chars       | Tipe: float64    | Unik: 1,479
+ 18. ClassLabel                     | Tipe: float64    | Unik: 2
+
+--------------------------------------------------------------------------------
+[ANALISIS TARGET / LABEL]
+Kolom Target Teridentifikasi: 'ClassLabel'
+
+Distribusi Kelas:
+  - Nilai [0.0]: 63,678 sampel (62.91%)
+  - Nilai [1.0]: 37,540 sampel (37.09%)
+  - Nilai [nan]: 1 sampel (0.00%)
+
+--------------------------------------------------------------------------------
+[PEMBAGIAN FITUR]
+Total Fitur Prediktor : 17
+Fitur Numerik (16)    : url_length, has_ip_address, dot_count, https_flag, url_entropy, token_count, subdomain_count, query_param_count, tld_length, path_length, has_hyphen_in_domain, number_of_digits, tld_popularity, suspicious_file_extension, domain_name_length, percentage_numeric_chars
+Fitur Kategorikal/Teks (1): URL
+
+--------------------------------------------------------------------------------
+[PEMERIKSAAN MISSING VALUES (NaN / NULL)]
+Total Missing Values: 1
+  - ClassLabel: 1 missing (0.00%)
+
+--------------------------------------------------------------------------------
+[PEMERIKSAAN INFINITY VALUES (+Inf / -Inf)]
+Status: TIDAK DITEMUKAN NILAI INFINITY (+Inf / -Inf) pada fitur numerik.
+
+--------------------------------------------------------------------------------
+[PEMERIKSAAN DUPLIKASI DATA]
+Duplikasi Baris Penuh (Identik seluruh kolom): 346 baris (0.34%)
+Duplikasi Berdasarkan Kolom 'URL'           : 346 baris (0.34%)
+Duplikasi Fitur (Kombinasi fitur sama)       : 346 baris (0.34%)
+
+--------------------------------------------------------------------------------
+[ANALISIS DATA LEAKAGE & FITUR IDENTIFIER]
+Status Korelasi: Tidak ada fitur numerik dengan korelasi mutlak >= 0.99 terhadap target.
+
+Top 5 Korelasi Tertinggi terhadap Target:
+  - https_flag               : 0.9292
+  - percentage_numeric_chars : -0.8156
+  - token_count              : -0.7769
+  - number_of_digits         : -0.7577
+  - has_ip_address           : -0.7449
+
+Analisis Fitur 'URL' (Raw String):
+  - Kolom 'URL' berisi string tautan mentah lengkap (raw URL).
+  - KARAKTERISTIK: Berpotensi menjadi Unique Identifier jika tidak diekstraksi.
+  - RISIKO OVERFITTING / DATA LEAKAGE: Jika kolom 'URL' mentah dimasukkan langsung ke model
+    tanpa tokenisasi atau feature engineering, model hanya menghafal URL spesifik (memorization)
+    alih-alih mempelajari karakteristik umum URL phishing.
+  - REKOMENDASI PREPROCESSING: Kolom 'URL' mentah HARUS di-drop dari fitur pelatihan model
+    dan hanya dijadikan ID baris atau visualisasi saat inference, sementara model dilatih murni
+    menggunakan 16 fitur struktural/leksikal hasil ekstraksi.
+
+Fitur Konstan: Tidak ada fitur ber-variansi nol (semua fitur memiliki keragaman nilai).
+
+================================================================================
+[KESIMPULAN KELAYAKAN DATASET]
+================================================================================
+1. Format & Keterbacaan : Sangat baik, CSV valid dan dapat diparsing tanpa error.
+2. Skalabilitas Data   : 101,219 baris, ukuran file 8.55 MB (~22.01 MB RAM).
+                         Sangat ramah komputasi untuk spesifikasi laptop/PC Windows (RAM 16 GB).
+3. Kualitas Data       :
+   - Missing Values     : 1 (Bersih)
+   - Infinite Values    : 0 (Bersih)
+   - Duplikasi Penuh    : 346 baris (Perlu drop duplikat pada preprocessing)
+4. Representasi Fitur  : Memuat 16 fitur leksikal, statistik, dan struktural URL standar industri
+                         (entropy, dot_count, ip_address, length, subdomains, token_count, dll.)
+5. Target Klasifikasi  : Jelas terdefinisi pada 'ClassLabel' (Biner: 0 dan 1).
+6. Kelayakan Proyek    : SANGAT LAYAK (HIGH FEASIBILITY) untuk implementasi sistem
+                         'Pengembangan Sistem Deteksi URL Phishing Berbasis Machine Learning'.
+================================================================================

@@ -1,0 +1,38 @@
+================================================================================
+LAPORAN DATA SPLITTING (TRAIN-TEST SPLIT) - PHISHGUARD AI
+================================================================================
+1. Membaca Dataset Bersih dari : E:\01. Matkul\Semester 5\01. KI\UAS\dataset\processed\clean_url_features.csv
+   Total Sampel               : 100,872 baris, 18 kolom
+2. Konfigurasi Pembagian Data :
+   - Rasio Training Data      : 80.0% (80,697 sampel)
+   - Rasio Testing Data       : 20.0% (20,174 sampel)
+   - Strategi Pembagian       : Stratified Sampling berdasarkan kolom 'ClassLabel'
+   - Random State             : 42 (Deterministik & Dapat Direproduksi)
+
+3. Hasil Pembagian Aktual    :
+   - Ukuran Data Training     : 80,697 baris (80.00%)
+   - Ukuran Data Testing      : 20,175 baris (20.00%)
+
+4. DISTRIBUSI KELAS:
+   Training Set:
+     * Kelas 0 (Legitimate)   : 50,793 baris (62.94%)
+     * Kelas 1 (Phishing)     : 29,904 baris (37.06%)
+   Testing Set:
+     * Kelas 0 (Legitimate)   : 12,699 baris (62.94%)
+     * Kelas 1 (Phishing)     : 7,476 baris (37.06%)
+   Status Distribusi          : IDENTIK (Stratifikasi berhasil menjaga proporsi kelas)
+
+5. ANALISIS KETERBATASAN RANDOM STRATIFIED SPLIT:
+   - Jumlah Domain Unik di Training Set : 53,917
+   - Jumlah Domain Unik di Testing Set  : 15,618
+   - Domain yang Beririsan (Overlap)    : 4,681 domain
+   - Domain Baru di Testing (Unseen)    : 10,937 domain
+   Catatan Akademis:
+   Pengacakan baris (random split) menghasilkan sebagian domain yang sama muncul di train dan test.
+   Hal ini valid untuk menguji kemampuan model menggeneralisasi karakteristik fitur leksikal dan
+   struktural URL, namun generalisasi mutlak terhadap domain baru (zero-day phishing domain)
+   dapat sedikit lebih rendah daripada akurasi testing jika domain target memiliki pola leksikal baru.
+
+6. Menyimpan File Partisi Data:
+   - Training Data tersimpan di : E:\01. Matkul\Semester 5\01. KI\UAS\dataset\processed\train_set.csv (6.88 MB)
+   - Testing Data tersimpan di  : E:\01. Matkul\Semester 5\01. KI\UAS\dataset\processed\test_set.csv (1.72 MB)

@@ -1,0 +1,26 @@
+{
+    "Decision Tree": {
+        "Accuracy": 0.9993060718711276,
+        "Precision": 0.9990636704119851,
+        "Recall": 0.9990636704119851,
+        "F1_Score": 0.9990636704119851,
+        "ROC_AUC": 0.9995854492993744,
+        "True_Negative": 12692,
+        "False_Positive": 7,
+        "False_Negative": 7,
+        "True_Positive": 7469,
+        "Inference_Time_Sec": 0.0601
+    },
+    "Random Forest": {
+        "Accuracy": 0.9993556381660471,
+        "Precision": 0.9998660415271265,
+        "Recall": 0.9983948635634029,
+        "F1_Score": 0.9991299109832006,
+        "ROC_AUC": 0.9999954391154353,
+        "True_Negative": 12698,
+        "False_Positive": 1,
+        "False_Negative": 12,
+        "True_Positive": 7464,
+        "Inference_Time_Sec": 0.0731
+    }
+}

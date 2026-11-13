@@ -1,0 +1,37 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.ipynb_checkpoints
+.pytest_cache/
+
+# Streamlit secrets & local config
+.streamlit/secrets.toml
+.env
+.env.*
+*.key
+*.pem
+
+# Large datasets (Raw dataset archived locally)
+dataset/raw/*.csv
+*.pcap
+*.pcap_ISCX.csv
+
+# Local backup & debug files
+app_backup.py
+reports/test_graph_dbg.html
+src/debug_graph.py
+
+# Large Model weights (keep lightweight release models only)
+models/*.pkl
+
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

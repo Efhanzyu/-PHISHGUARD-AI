@@ -1,0 +1,28 @@
+================================================================================
+LAPORAN DATA PREPROCESSING - PHISHGUARD AI
+================================================================================
+1. Membaca Dataset Asli dari : D:\01. Unduh\url_features_extracted1.csv
+   Dimensi Awal Dataset      : 101,219 baris, 18 kolom
+2. Pembersihan Header Kolom  : Selesai (18 kolom ternormalisasi)
+3. Pemeriksaan Missing Target: Ditemukan 1 baris bernilai NaN pada 'ClassLabel'
+   Tindakan                  : 1 baris target kosong dihapus. Sisa baris: 101,218
+4. Validasi Kelas Target     : Label unik terdeteksi = [np.int64(0), np.int64(1)]
+   Status Validasi           : VALID (0 = Legitimate / Normal, 1 = Phishing / Malicious)
+5. Struktur Fitur             : 16 fitur prediktor numerik terverifikasi
+   Kolom Metadata            : 'URL' (Dipertahankan untuk audit dan identitas baris)
+6. Kualitas Nilai Fitur      : Missing Values = 0, Infinity Values = 0
+   Status Integritas Fitur   : BERSIH & FINITE
+7. Pemeriksaan Duplikasi      :
+   - Duplikasi Penuh         : 346 baris
+   - Duplikasi Kolom 'URL'   : 346 baris
+   - Konflik Label pada URL  : 0 baris (Seluruh duplikat memiliki label konsisten)
+   Tindakan Deduplikasi      : 346 baris duplikat dihapus secara deterministik
+   Jumlah Data Bersih Akhir  : 100,872 baris, 18 kolom
+
+8. DISTRIBUSI KELAS SETELAH PREPROCESSING:
+   - Kelas 0 (Legitimate)    : 63,492 baris (62.94%)
+   - Kelas 1 (Phishing)      : 37,380 baris (37.06%)
+   - Total Sampel Bersih     : 100,872 baris
+
+9. Menyimpan dataset bersih ke: E:\01. Matkul\Semester 5\01. KI\UAS\dataset\processed\clean_url_features.csv
+   Ukuran File Hasil         : 8.60 MB

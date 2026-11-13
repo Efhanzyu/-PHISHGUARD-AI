@@ -1,0 +1,91 @@
+================================================================================
+RINGKASAN HASIL EXPLORATORY DATA ANALYSIS (EDA) - PHISHGUARD AI
+================================================================================
+Lokasi Dataset : D:\01. Unduh\url_features_extracted1.csv
+Dimensi Awal   : 101,219 baris, 18 kolom
+Baris dengan target NaN di-exclude untuk EDA: 1 baris
+
+[1. DISTRIBUSI KELAS]
+ - Kelas 0 (Legitimate (Normal)): 63,678 sampel (62.91%)
+ - Kelas 1 (Phishing (Malicious)): 37,540 sampel (37.09%)
+ -> Grafik tersimpan: E:\01. Matkul\Semester 5\01. KI\UAS\reports\figures\class_distribution.png
+
+[2. STATISTIK DESKRIPTIF FITUR NUMERIK]
+                                mean        std       min        50%         max   skewness
+url_length                 35.061046  16.805753  7.000000  31.000000  474.000000   5.827283
+has_ip_address              0.484884   0.499774  0.000000   0.000000    1.000000   0.060492
+dot_count                   3.007785   0.946612  0.000000   3.000000   19.000000   1.397882
+https_flag                  0.405639   0.491018  0.000000   0.000000    1.000000   0.384355
+url_entropy                 3.976112   0.307070  2.521641   3.937193    5.871503   0.856456
+token_count                 6.885752   1.670268  1.000000   7.000000   48.000000   2.236224
+subdomain_count             1.511520   0.624756 -1.000000   2.000000    5.000000  -1.040199
+query_param_count           1.010591   0.202795  1.000000   1.000000   14.000000  33.432047
+tld_length                  5.003290   2.917436  0.000000   3.000000   10.000000   0.342202
+path_length                 8.538333  14.701798  0.000000   2.000000  317.000000   4.769846
+has_hyphen_in_domain        0.042898   0.202627  0.000000   0.000000    1.000000   4.511851
+number_of_digits            8.508753   8.540812  0.000000  10.000000  164.000000   2.524293
+tld_popularity              0.328282   0.469590  0.000000   0.000000    1.000000   0.731369
+suspicious_file_extension   0.146614   0.353723  0.000000   0.000000    1.000000   1.998134
+domain_name_length          6.292142   5.342686  0.000000   3.000000   36.000000   1.222029
+percentage_numeric_chars   24.136725  22.490243  0.000000  19.642857   65.957447   0.091692
+
+[3. KORELASI FITUR TERHADAP TARGET (ClassLabel)]
+ - https_flag                 : +0.9292
+ - tld_popularity             : +0.5927
+ - domain_name_length         : +0.5309
+ - has_hyphen_in_domain       : +0.1182
+ - query_param_count          : -0.0400
+ - url_entropy                : -0.2921
+ - suspicious_file_extension  : -0.3180
+ - url_length                 : -0.3372
+ - path_length                : -0.4205
+ - subdomain_count            : -0.4382
+ - tld_length                 : -0.5991
+ - dot_count                  : -0.6914
+ - has_ip_address             : -0.7449
+ - number_of_digits           : -0.7577
+ - token_count                : -0.7769
+ - percentage_numeric_chars   : -0.8156
+ -> Grafik tersimpan: E:\01. Matkul\Semester 5\01. KI\UAS\reports\figures\correlation_heatmap.png
+ -> Grafik tersimpan: E:\01. Matkul\Semester 5\01. KI\UAS\reports\figures\top_features_correlation.png
+
+[4. INVESTIGASI FITUR KORELASI TINGGI: https_flag]
+Tabel Kontinjensi https_flag vs ClassLabel:
+ClassLabel      0      1     All
+https_flag                      
+0           60155      5   60160
+1            3523  37535   41058
+All         63678  37540  101218
+
+Persentase Baris:
+ClassLabel      0      1
+https_flag              
+0           99.99   0.01
+1            8.58  91.42
+ -> Grafik tersimpan: E:\01. Matkul\Semester 5\01. KI\UAS\reports\figures\https_flag_analysis.png
+Catatan Investigasi: Fitur https_flag memiliki korelasi kuat (+0.93) karena sebagian besar URL legitimate pada dataset menggunakan format non-https / HTTP biasa, sedangkan dataset phishing memuat URL dengan https atau sebaliknya. Namun fitur ini TIDAK mengalami leakage 100% (bukan korelasi 1.0) sehingga tetap dipertahankan dengan pembobotan fitur oleh tree model.
+ -> Grafik tersimpan: E:\01. Matkul\Semester 5\01. KI\UAS\reports\figures\important_features_histograms.png
+
+[5. ANALISIS OUTLIER (INTERQUARTILE RANGE - IQR)]
+ - url_length                 : 13,533 outlier (13.37%)
+ - has_ip_address             :      0 outlier ( 0.00%)
+ - dot_count                  :    170 outlier ( 0.17%)
+ - https_flag                 :      0 outlier ( 0.00%)
+ - url_entropy                :  5,827 outlier ( 5.76%)
+ - token_count                :    634 outlier ( 0.63%)
+ - subdomain_count            :  1,367 outlier ( 1.35%)
+ - query_param_count          :    461 outlier ( 0.46%)
+ - tld_length                 :      0 outlier ( 0.00%)
+ - path_length                : 15,540 outlier (15.35%)
+ - has_hyphen_in_domain       :  4,342 outlier ( 4.29%)
+ - number_of_digits           :    448 outlier ( 0.44%)
+ - tld_popularity             :      0 outlier ( 0.00%)
+ - suspicious_file_extension  : 14,840 outlier (14.66%)
+ - domain_name_length         :    566 outlier ( 0.56%)
+ - percentage_numeric_chars   :      0 outlier ( 0.00%)
+Catatan Outlier: Fitur berbasis pohon (Decision Tree & Random Forest) secara inheren sangat tangguh (robust) terhadap outlier karena keputusan split dilakukan berdasarkan urutan nilai fitur (rank-based thresholds), bukan jarak euclidian.
+
+[6. ANALISIS DUPLIKASI DAN KONFLIK LABEL URL]
+Jumlah URL unik                               : 100,872
+Jumlah URL yang memiliki label konflik (>1)   : 0
+Status: TIDAK ADA KONFLIK LABEL pada URL duplikat. Seluruh URL identik memiliki label konsisten.
