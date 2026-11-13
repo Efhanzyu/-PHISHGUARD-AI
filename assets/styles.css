@@ -332,13 +332,15 @@ div[data-testid="stAlert"] {
     background: rgba(16, 39, 34, 0.55);
     border: 1px solid rgba(53, 214, 192, 0.22);
     border-radius: 14px;
-    overflow: hidden;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
     margin-top: 14px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 }
 
 .cyber-table {
     width: 100%;
+    min-width: 520px;
     border-collapse: collapse;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
@@ -388,5 +390,176 @@ div[data-testid="stAlert"] {
     border-radius: 6px;
     display: inline-block;
     box-shadow: 0 0 10px rgba(53, 214, 192, 0.1);
+}
+
+/* ==========================================================================
+   Top Header Layout (Desktop & Mobile)
+   ========================================================================== */
+.cyber-top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 10px 0 18px 0;
+    border-bottom: 1px solid rgba(53, 214, 192, 0.16);
+    margin-bottom: 22px;
+}
+
+.cyber-header-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.cyber-header-badges {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cyber-header-badge-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS (Smartphones & Tablets)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Responsive Canvas & App padding */
+    .block-container {
+        padding-top: 3.8rem !important;
+        padding-bottom: 2.5rem !important;
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+    }
+
+    /* Auto-wrap and graceful stacking for Streamlit horizontal columns */
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+
+    [data-testid="column"] {
+        min-width: 100% !important;
+        flex: 1 1 100% !important;
+        width: 100% !important;
+    }
+
+    /* Tablet/Phone: 2 columns for metric cards when screen >= 480px */
+    [data-testid="stHorizontalBlock"]:has(.metric-tile) [data-testid="column"] {
+        min-width: 140px !important;
+        flex: 1 1 calc(50% - 10px) !important;
+        width: calc(50% - 10px) !important;
+    }
+
+    /* Mobile Header Stacking */
+    .cyber-top-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        padding-bottom: 14px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .cyber-header-badges {
+        width: 100% !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+    }
+
+    .cyber-header-badge-item {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        padding: 5px 12px !important;
+        font-size: 10.5px !important;
+    }
+
+    /* Metric Cards on Mobile */
+    .metric-tile {
+        padding: 13px 15px !important;
+        margin-bottom: 8px !important;
+        border-radius: 11px !important;
+    }
+
+    .metric-number {
+        font-size: 1.5rem !important;
+    }
+
+    .metric-label {
+        font-size: 0.68rem !important;
+    }
+
+    .metric-sub {
+        font-size: 0.72rem !important;
+    }
+
+    /* Cards & Containers on Mobile */
+    .cyber-card {
+        padding: 15px 16px !important;
+        border-radius: 12px !important;
+        margin-bottom: 16px !important;
+    }
+
+    /* Full-width Touch-Friendly Buttons */
+    .stButton > button,
+    button[kind="primary"] {
+        width: 100% !important;
+        padding: 12px 18px !important;
+        font-size: 0.92rem !important;
+    }
+
+    /* Responsive Threat Verdict Box */
+    .threat-verdict-box {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 14px !important;
+    }
+
+    .threat-verdict-box .verdict-prob-col {
+        text-align: left !important;
+        width: 100% !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+        padding-top: 10px !important;
+    }
+
+    /* Responsive Tabs for Touch Devices */
+    .stTabs [data-baseweb="tab-list"] {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        font-size: 0.8rem !important;
+        padding: 7px 12px !important;
+        flex: 1 1 auto !important;
+        text-align: center !important;
+    }
+
+    /* Sidebar Touch Optimization */
+    section[data-testid="stSidebar"] {
+        width: 85vw !important;
+        max-width: 320px !important;
+    }
+
+    div[data-testid="stRadio"] div[role="radiogroup"] > label {
+        padding: 12px 14px !important;
+        font-size: 0.88rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Stack metric cards strictly 1 per row on narrow phone screens */
+    [data-testid="stHorizontalBlock"]:has(.metric-tile) [data-testid="column"] {
+        min-width: 100% !important;
+        flex: 1 1 100% !important;
+        width: 100% !important;
+    }
+
+    .metric-number {
+        font-size: 1.4rem !important;
+    }
 }
 

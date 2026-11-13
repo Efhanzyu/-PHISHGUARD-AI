@@ -31,7 +31,7 @@ def render_network_graph():
     html, body {
         width: 100%;
         height: 100%;
-        min-height: 720px;
+        min-height: 100%;
         background: radial-gradient(ellipse at 35% 35%, #0B211D 0%, #061411 60%, #030A09 100%);
         color: #E8F5F1;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;

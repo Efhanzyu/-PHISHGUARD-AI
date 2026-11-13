@@ -197,32 +197,32 @@ elif menu == "🧪 Threat Scanner (Single URL)":
             st.markdown("<br>", unsafe_allow_html=True)
             if pred == 1:
                 st.markdown(f"""
-                <div style="background: rgba(255, 85, 102, 0.12); border: 2px solid #FF5566; border-radius: 14px; padding: 22px 26px; box-shadow: 0 0 32px rgba(255, 85, 102, 0.35); margin-bottom: 24px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: #FF5566; text-transform: uppercase;">⚠️ CRITICAL THREAT DETECTED</div>
-                            <div style="font-size: 26px; font-weight: 800; color: #ffffff; margin-top: 4px;">VERDICT: PHISHING / MALICIOUS URL</div>
-                            <div style="font-size: 13px; color: #E8F5F1; margin-top: 6px;">URL ini memiliki karakteristik manipulasi path, entropi tinggi, dan token tidak wajar yang sering digunakan dalam credential harvesting.</div>
+                <div class="threat-verdict-card threat-phishing" style="background: rgba(255, 85, 102, 0.12); border: 2px solid #FF5566; border-radius: 14px; padding: 20px 24px; box-shadow: 0 0 32px rgba(255, 85, 102, 0.35); margin-bottom: 24px;">
+                    <div class="threat-verdict-box" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+                        <div style="flex: 1 1 280px;">
+                            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #FF5566; text-transform: uppercase;">⚠️ CRITICAL THREAT DETECTED</div>
+                            <div style="font-size: 24px; font-weight: 800; color: #ffffff; margin-top: 4px; line-height: 1.25;">VERDICT: PHISHING / MALICIOUS URL</div>
+                            <div style="font-size: 13px; color: #E8F5F1; margin-top: 6px; line-height: 1.4;">URL ini memiliki karakteristik manipulasi path, entropi tinggi, dan token tidak wajar yang sering digunakan dalam credential harvesting.</div>
                         </div>
-                        <div style="text-align: right;">
+                        <div class="verdict-prob-col" style="text-align: right; min-width: 140px;">
                             <div style="font-size: 11px; color: #FFA1AC; text-transform: uppercase; font-weight: 600;">PHISHING PROBABILITY</div>
-                            <div style="font-size: 34px; font-weight: 800; color: #FF5566; font-family: 'JetBrains Mono', monospace;">{prob*100:.2f}%</div>
+                            <div style="font-size: 32px; font-weight: 800; color: #FF5566; font-family: 'JetBrains Mono', monospace; line-height: 1.1;">{prob*100:.2f}%</div>
                         </div>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
             else:
                 st.markdown(f"""
-                <div style="background: rgba(53, 214, 192, 0.12); border: 2px solid #35D6C0; border-radius: 14px; padding: 22px 26px; box-shadow: 0 0 32px rgba(53, 214, 192, 0.35); margin-bottom: 24px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: #35D6C0; text-transform: uppercase;">✅ THREAT VERIFICATION PASSED</div>
-                            <div style="font-size: 26px; font-weight: 800; color: #ffffff; margin-top: 4px;">VERDICT: LEGITIMATE / SAFE URL</div>
-                            <div style="font-size: 13px; color: #E8F5F1; margin-top: 6px;">Struktur leksikal, protokol, dan domain URL konsisten dengan karakteristik situs bereputasi sah.</div>
+                <div class="threat-verdict-card threat-legit" style="background: rgba(53, 214, 192, 0.12); border: 2px solid #35D6C0; border-radius: 14px; padding: 20px 24px; box-shadow: 0 0 32px rgba(53, 214, 192, 0.35); margin-bottom: 24px;">
+                    <div class="threat-verdict-box" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+                        <div style="flex: 1 1 280px;">
+                            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #35D6C0; text-transform: uppercase;">✅ THREAT VERIFICATION PASSED</div>
+                            <div style="font-size: 24px; font-weight: 800; color: #ffffff; margin-top: 4px; line-height: 1.25;">VERDICT: LEGITIMATE / SAFE URL</div>
+                            <div style="font-size: 13px; color: #E8F5F1; margin-top: 6px; line-height: 1.4;">Struktur leksikal, protokol, dan domain URL konsisten dengan karakteristik situs bereputasi sah.</div>
                         </div>
-                        <div style="text-align: right;">
+                        <div class="verdict-prob-col" style="text-align: right; min-width: 140px;">
                             <div style="font-size: 11px; color: #89AAA2; text-transform: uppercase; font-weight: 600;">PHISHING PROBABILITY</div>
-                            <div style="font-size: 34px; font-weight: 800; color: #35D6C0; font-family: 'JetBrains Mono', monospace;">{prob*100:.2f}%</div>
+                            <div style="font-size: 32px; font-weight: 800; color: #35D6C0; font-family: 'JetBrains Mono', monospace; line-height: 1.1;">{prob*100:.2f}%</div>
                         </div>
                     </div>
                 </div>
@@ -381,7 +381,7 @@ elif menu == "🔍 Batch Threat Triage (CSV)":
                     ax.set_facecolor('#102722')
                     for text in ax.texts:
                         text.set_color("#E8F5F1")
-                    st.pyplot(fig)
+                    st.pyplot(fig, use_container_width=True)
                     plt.close()
                     
                 with v2:
@@ -393,7 +393,7 @@ elif menu == "🔍 Batch Threat Triage (CSV)":
                     fig.patch.set_facecolor('#102722')
                     ax.set_facecolor('#102722')
                     ax.tick_params(colors='#E8F5F1')
-                    st.pyplot(fig)
+                    st.pyplot(fig, use_container_width=True)
                     plt.close()
                 st.markdown("</div>", unsafe_allow_html=True)
 
@@ -461,7 +461,7 @@ elif menu == "📊 Analytics & Validation":
             """, unsafe_allow_html=True)
             cm_path = os.path.join("reports", "confusion_matrix.png")
             if os.path.exists(cm_path):
-                st.image(cm_path, caption="Confusion Matrix Decision Tree vs Random Forest")
+                st.image(cm_path, caption="Confusion Matrix Decision Tree vs Random Forest", use_container_width=True)
         with c2:
             st.markdown("""
             <div class="cyber-card" style="margin-bottom: 12px; padding: 14px 18px;">
@@ -474,7 +474,7 @@ elif menu == "📊 Analytics & Validation":
             """, unsafe_allow_html=True)
             roc_path = os.path.join("reports", "figures", "roc_curve_comparison.png")
             if os.path.exists(roc_path):
-                st.image(roc_path, caption="ROC Curve Comparison (AUC = 0.999995)")
+                st.image(roc_path, caption="ROC Curve Comparison (AUC = 0.999995)", use_container_width=True)
             
     with t2:
         c3, c4 = st.columns(2)
@@ -490,7 +490,7 @@ elif menu == "📊 Analytics & Validation":
             """, unsafe_allow_html=True)
             fi_path = os.path.join("reports", "figures", "feature_importance_comparison.png")
             if os.path.exists(fi_path):
-                st.image(fi_path, caption="Peringkat Gini Importance 16 Fitur Prediktor")
+                st.image(fi_path, caption="Peringkat Gini Importance 16 Fitur Prediktor", use_container_width=True)
         with c4:
             st.markdown("""
             <div class="cyber-card" style="margin-bottom: 12px; padding: 14px 18px;">
@@ -503,7 +503,7 @@ elif menu == "📊 Analytics & Validation":
             """, unsafe_allow_html=True)
             corr_path = os.path.join("reports", "figures", "correlation_heatmap.png")
             if os.path.exists(corr_path):
-                st.image(corr_path, caption="Heatmap Korelasi Pearson Matriks Fitur Asli")
+                st.image(corr_path, caption="Heatmap Korelasi Pearson Matriks Fitur Asli", use_container_width=True)
 
 # ==============================================================================
 # 5. NEURAL ARCHITECTURE (SPECIFICATIONS)
