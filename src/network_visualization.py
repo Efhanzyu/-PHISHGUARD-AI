@@ -239,6 +239,71 @@ def render_network_graph():
     }
     .stat-val { font-size: 18px; font-weight: 800; color: #35D6C0; font-family: monospace; line-height: 1; }
     .stat-lbl { font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.1em; color: #53746D; margin-top: 3px; }
+
+    /* Mobile Responsive Optimizations for Topology Canvas */
+    @media (max-width: 768px) {
+        .title-badge {
+            top: 10px;
+            left: 10px;
+            padding: 6px 12px;
+            gap: 8px;
+            max-width: calc(100% - 20px);
+        }
+        .title-text { font-size: 11px; }
+        .title-sub { display: none; }
+
+        .toolbar {
+            top: auto;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 8px;
+            gap: 4px;
+            z-index: 25;
+            background: rgba(11, 33, 29, 0.94);
+        }
+        .tool-btn {
+            padding: 4px 8px;
+            font-size: 10px;
+        }
+        #btn-flow, #btn-orbits { display: none; }
+        .tb-sep { margin: 0 2px; }
+
+        .legend {
+            display: none !important; /* Hide massive legend on mobile to free canvas view */
+        }
+
+        .stats-tray {
+            display: none !important; /* Hide floating stats tray on mobile */
+        }
+
+        .info-panel {
+            position: absolute;
+            top: auto !important;
+            bottom: 56px !important;
+            left: 10px !important;
+            right: 10px !important;
+            width: auto !important;
+            max-width: calc(100% - 20px) !important;
+            padding: 12px 14px !important;
+            border-radius: 12px !important;
+            background: rgba(11, 33, 29, 0.96) !important;
+            backdrop-filter: blur(20px) !important;
+            z-index: 40 !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+        }
+        .panel-title { font-size: 14px !important; }
+        .panel-desc {
+            font-size: 11px !important;
+            line-height: 1.35 !important;
+            margin-bottom: 8px !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .panel-row { padding: 4px 0 !important; font-size: 10.5px !important; }
+    }
 </style>
 </head>
 <body>
@@ -271,7 +336,10 @@ def render_network_graph():
 
 <!-- Floating Holographic Info Panel -->
 <div class="info-panel" id="infoPanel">
-    <div class="panel-badge" id="panelBadge" style="background: rgba(242,201,109,0.2); color: #F2C96D;">CORE ENGINE</div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <div class="panel-badge" id="panelBadge" style="background: rgba(242,201,109,0.2); color: #F2C96D; margin-bottom: 0;">CORE ENGINE</div>
+        <button id="panelCloseBtn" style="background: transparent; border: none; color: #89AAA2; font-size: 16px; cursor: pointer; padding: 0 4px; line-height: 1;" title="Tutup panel">✕</button>
+    </div>
     <div class="panel-title" id="panelTitle">PhishGuard Core</div>
     <div class="panel-desc" id="panelDesc">Ensemble Random Forest Intelligence Unit yang mengolah 16 dimensi fitur leksikal dan struktural URL.</div>
     <div class="panel-row">
@@ -716,6 +784,20 @@ function updatePanel(node) {
     infoPanel.classList.remove('hidden');
 }
 
+const closeBtn = document.getElementById('panelCloseBtn');
+if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        infoPanel.classList.add('hidden');
+        selectedNode = null;
+    });
+}
+
+// Auto-hide panel initially on mobile to keep graph clear
+if (window.innerWidth <= 768) {
+    infoPanel.classList.add('hidden');
+}
+
 // ═════════════════════════════════════════════════════════════════════
 //  9. MOUSE & TOUCH EVENT LISTENERS (PAN & ZOOM)
 // ═════════════════════════════════════════════════════════════════════
@@ -746,6 +828,9 @@ mainCanvas.addEventListener('mousedown', e => {
     if (hit) {
         selectedNode = hit;
         updatePanel(hit);
+    } else if (window.innerWidth <= 768) {
+        infoPanel.classList.add('hidden');
+        selectedNode = null;
     }
 });
 

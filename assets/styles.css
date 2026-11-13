@@ -427,18 +427,18 @@ div[data-testid="stAlert"] {
    RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS (Smartphones & Tablets)
    ========================================================================== */
 @media (max-width: 768px) {
-    /* Responsive Canvas & App padding */
+    /* Responsive Canvas & App padding with Safe-Area Inset */
     .block-container {
-        padding-top: 3.8rem !important;
-        padding-bottom: 2.5rem !important;
-        padding-left: 0.85rem !important;
-        padding-right: 0.85rem !important;
+        padding-top: 4.2rem !important;
+        padding-bottom: 2.8rem !important;
+        padding-left: max(1.4rem, env(safe-area-inset-left)) !important;
+        padding-right: max(1.4rem, env(safe-area-inset-right)) !important;
     }
 
     /* Auto-wrap and graceful stacking for Streamlit horizontal columns */
     [data-testid="stHorizontalBlock"] {
         flex-wrap: wrap !important;
-        gap: 10px !important;
+        gap: 8px !important;
     }
 
     [data-testid="column"] {
@@ -447,11 +447,28 @@ div[data-testid="stAlert"] {
         width: 100% !important;
     }
 
-    /* Tablet/Phone: 2 columns for metric cards when screen >= 480px */
+    /* Symmetrical 2-Column Grid for Metric Cards on all Mobile Screens */
+    [data-testid="stHorizontalBlock"]:has(.metric-tile) {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
     [data-testid="stHorizontalBlock"]:has(.metric-tile) [data-testid="column"] {
-        min-width: 140px !important;
-        flex: 1 1 calc(50% - 10px) !important;
-        width: calc(50% - 10px) !important;
+        min-width: calc(50% - 5px) !important;
+        max-width: calc(50% - 5px) !important;
+        flex: 1 1 calc(50% - 5px) !important;
+        width: calc(50% - 5px) !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* 5th Metric Card (ROC-AUC) spans 100% full width */
+    [data-testid="stHorizontalBlock"]:has(.metric-tile) [data-testid="column"]:last-child {
+        min-width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 100% !important;
+        width: 100% !important;
     }
 
     /* Mobile Header Stacking */
@@ -477,23 +494,28 @@ div[data-testid="stAlert"] {
         font-size: 10.5px !important;
     }
 
-    /* Metric Cards on Mobile */
+    /* Compact & Neat Metric Cards on Mobile */
     .metric-tile {
-        padding: 13px 15px !important;
-        margin-bottom: 8px !important;
+        padding: 11px 13px !important;
+        margin-bottom: 6px !important;
         border-radius: 11px !important;
     }
 
     .metric-number {
-        font-size: 1.5rem !important;
+        font-size: 1.35rem !important;
+        margin: 2px 0 1px 0 !important;
     }
 
     .metric-label {
-        font-size: 0.68rem !important;
+        font-size: 0.65rem !important;
+        letter-spacing: 0.06em !important;
     }
 
     .metric-sub {
-        font-size: 0.72rem !important;
+        font-size: 0.68rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
 
     /* Cards & Containers on Mobile */
@@ -547,19 +569,6 @@ div[data-testid="stAlert"] {
     div[data-testid="stRadio"] div[role="radiogroup"] > label {
         padding: 12px 14px !important;
         font-size: 0.88rem !important;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Stack metric cards strictly 1 per row on narrow phone screens */
-    [data-testid="stHorizontalBlock"]:has(.metric-tile) [data-testid="column"] {
-        min-width: 100% !important;
-        flex: 1 1 100% !important;
-        width: 100% !important;
-    }
-
-    .metric-number {
-        font-size: 1.4rem !important;
     }
 }
 

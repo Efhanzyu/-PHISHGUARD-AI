@@ -148,7 +148,7 @@ if menu == "🌐 Intelligence Core (Topology)":
         render_metric_card("ROC-AUC", "0.99999", "Perfect Discrimination", "turquoise")
 
     # Render HTML5 Canvas Network Topology Component
-    components.html(render_network_graph(), height=740, scrolling=False)
+    components.html(render_network_graph(), height=620, scrolling=False)
     
     # Model Comparison Table
     st.markdown("<br>", unsafe_allow_html=True)
